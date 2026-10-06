@@ -98,7 +98,16 @@ flowchart LR
 - The local database initializes from the application models. PostgreSQL is supported through `DATABASE_URL`; the default quickstart does not require Docker.
 - Model output, latency, and availability depend on the selected provider and account limits.
 
-The [implementation guide](docs/product-spec.md) describes the current system and its limits. The original Word proposal is retained as [historical documentation](docs/Initial%20Product%20Proposal%20-%20Historical.docx) and includes ideas that were not implemented or later changed.
+## Practical testing examples
+
+The project scope is the current application; there is no additional numbered release roadmap. Try these two conversations with a real Groq model:
+
+- **Correct a dinner plan:** Ask for a dinner with dairy ingredients, make a dairy-free correction in a selected-text branch, accept it, then request the shopping list in main chat. The final answer should retain the substitutions without your repeating them.
+- **Clarify a Python study plan:** Select text about lists and dictionaries, ask for clarification and a shorter weekday schedule, continue the branch with a timing constraint, then accept it. The next main-chat schedule should retain the latest branch constraints.
+
+See [the full prompts and expected results](docs/manual-testing.md). Open **See logs** before the final question and inspect the graph to check that branch context was included. Mock mode can demonstrate the interface but does not verify these semantic outcomes.
+
+The [implementation guide](docs/product-spec.md) and [Word specification](docs/InlineGraph%20AI%20Product%20Specification.docx) describe the current application, its workflow, and its limits.
 
 ## Contributing
 

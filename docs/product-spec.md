@@ -2,6 +2,8 @@
 
 This document describes the current local application: what it does, how it is built, and what is not implemented. InlineGraph AI is a chat application for exploring selected parts of AI answers and carrying branch discussions into later prompts. Its branch workflow uses an LLM and a fixed, orchestrated sequence. It is not a general autonomous agent: it does not independently choose goals, use external tools, or take actions on a user's behalf.
 
+The project scope is the application as it stands. There is no additional numbered release roadmap. Practical test conversations are provided below instead of a planned evaluation program.
+
 ## Product behavior
 
 The main chat accepts a question and returns an answer. Users can select one or more text ranges from an answer, then open a prompt composer and ask a free-form question about them. Each exploration is saved as a branch with its selected text, source passages, prompt, replies, and review status. A branch can be continued as a normal conversational exchange.
@@ -70,7 +72,7 @@ See the repository [README](../README.md) for prerequisites, environment setting
 
 The API health endpoint is `http://localhost:8000/api/health`. The web app runs at `http://localhost:3000` with the documented development command.
 
-## Known limits and future work
+## Known limits
 
 - There is no context token budget, history summarization, or truncation strategy.
 - Branch review does not verify factual accuracy.
@@ -79,8 +81,13 @@ The API health endpoint is `http://localhost:8000/api/health`. The web app runs 
 - Merge-related database structures and API routes exist, but accepting a branch is not a merge and the current primary workflow does not depend on merging.
 - Provider limits, availability, latency, and output quality depend on the Groq account and selected model.
 
-Potential follow-up work includes bounded context management, clearer context selection policies for very long chats, and evaluation of branch continuity and answer quality. These are future improvements, not current capabilities.
+## Practical test conversations
 
-## Historical proposal
+The [manual testing guide](manual-testing.md) provides two distinct scenarios with exact prompts, selection instructions, branch follow-ups where applicable, and expected results:
 
-The file `Initial Product Proposal - Historical.docx` preserves the earlier proposal that informed the project. It contains concepts that were not implemented or were changed during development. This implementation guide and the README describe the current application and should be used for its actual behavior and technology choices.
+- A dairy-free correction to a dinner plan, followed by a shopping-list request that should carry the correction forward.
+- Clarification of Python lists and dictionaries using multiple selections, followed by a study schedule that should retain timing constraints from a continued branch.
+
+Use live model mode, start a new conversation for each scenario, and open **See logs** before the final question. These are checks readers can perform; the expected conditions are not claims that every model response will meet them.
+
+The [Word specification](InlineGraph%20AI%20Product%20Specification.docx) contains the same scenarios and describes the current implementation.
