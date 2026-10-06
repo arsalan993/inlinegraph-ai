@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Accepted branch answer becomes context for the next main-chat answer</title>
+  <desc id="desc">A flow diagram showing a user asking a main question, receiving an answer, selecting text and asking a branch question, accepting the branch answer, and then having that accepted answer included in the context for the next main-chat question. The original answer stays unchanged and no separate merge action is needed.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#8794a7"/></marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M1 1 L11 6 L1 11 Z" fill="#635bdb"/></marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#25324a" flood-opacity=".09"/></filter>
+    <style>
+      text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;fill:#17233d}
+      .title{font-size:31px;font-weight:700}.subtitle{font-size:17px;fill:#64748b}
+      .card{filter:url(#shadow);stroke-width:1.5}.label{font-size:13px;font-weight:700;letter-spacing:1.2px;fill:#637287}
+      .head{font-size:20px;font-weight:700}.body{font-size:16px;fill:#425168}.small{font-size:14px;fill:#5c6b7f}
+      .line{fill:none;stroke:#9aa6b6;stroke-width:2.5;marker-end:url(#arrow)}
+      .contextline{fill:none;stroke:#635bdb;stroke-width:3;stroke-dasharray:9 7;marker-end:url(#arrowPurple)}
+      .tag{font-size:13px;font-weight:700;fill:#5147bd}
+    </style>
+  </defs>
+  <rect width="1600" height="1000" rx="24" fill="#f7f9fc"/>
+  <text x="64" y="66" class="title">Accepted branch → context for the next chat answer</text>
+  <text x="64" y="98" class="subtitle">Accepting keeps the branch as a saved exploration. Its answer is supplied with the next main-chat prompt automatically.</text>
+
+  <!-- Existing exchange -->
+  <rect x="64" y="150" width="370" height="122" rx="18" fill="#fff7e8" stroke="#ead7ac" class="card"/>
+  <text x="92" y="184" class="label">MAIN CHAT · QUESTION 1</text>
+  <text x="92" y="220" class="head">User asks the first question</text>
+  <text x="92" y="247" class="body">Q1</text>
+
+  <path d="M434 211 H490" class="line"/>
+  <rect x="500" y="150" width="410" height="122" rx="18" fill="#eef2f8" stroke="#d5deeb" class="card"/>
+  <text x="528" y="184" class="label">MAIN ANSWER · VERSION 1</text>
+  <text x="528" y="220" class="head">AI gives answer A1</text>
+  <text x="528" y="247" class="body">Text can be selected at any range.</text>
+
+  <path d="M910 211 H972" class="line"/>
+  <rect x="982" y="150" width="550" height="122" rx="18" fill="#edf8f5" stroke="#c9e7df" class="card"/>
+  <text x="1010" y="184" class="label">SELECTED TEXT → BRANCH QUESTION</text>
+  <text x="1010" y="220" class="head">User asks about selected text</text>
+  <text x="1010" y="247" class="body">The branch keeps its text selection and source.</text>
+
+  <!-- Branch and accept -->
+  <path d="M1257 272 V344" class="line"/>
+  <rect x="982" y="354" width="550" height="134" rx="18" fill="#edf8f5" stroke="#c9e7df" class="card"/>
+  <text x="1010" y="388" class="label">BRANCH ANSWER</text>
+  <text x="1010" y="424" class="head">AI answers the branch question</text>
+  <text x="1010" y="453" class="body">Branch answer B1 stays linked to the selected text.</text>
+
+  <path d="M1257 488 V558" class="line"/>
+  <rect x="982" y="568" width="550" height="126" rx="18" fill="#eaf8ee" stroke="#9bd2a9" class="card"/>
+  <text x="1010" y="603" class="label" style="fill:#287746">USER CLICKS ACCEPT</text>
+  <text x="1010" y="640" class="head">Show “Accepted” status</text>
+  <text x="1010" y="668" class="body">No separate “Merge into answer” step.</text>
+
+  <!-- Next question context path -->
+  <rect x="64" y="568" width="370" height="126" rx="18" fill="#fff7e8" stroke="#ead7ac" class="card"/>
+  <text x="92" y="603" class="label">LATER · MAIN CHAT QUESTION 2</text>
+  <text x="92" y="640" class="head">User asks the next question</text>
+  <text x="92" y="668" class="body">Q2</text>
+
+  <rect x="500" y="518" width="410" height="226" rx="18" fill="#f0efff" stroke="#c9c5ff" class="card"/>
+  <text x="528" y="554" class="label" style="fill:#5147bd">CONTEXT ASSEMBLY · AUTOMATIC</text>
+  <text x="528" y="592" class="head">Build prompt context</text>
+  <text x="528" y="626" class="body">• Earlier main-chat questions and answers</text>
+  <text x="528" y="655" class="body">• Accepted branch answer B1</text>
+  <text x="528" y="684" class="body">• Its selected text and source link</text>
+  <text x="528" y="716" class="small">B1 is context; A1 is not rewritten.</text>
+
+  <path d="M434 631 H490" class="line"/>
+  <path d="M982 631 C950 631 948 631 910 631" class="contextline"/>
+  <text x="914" y="606" class="tag">accepted B1 + history</text>
+
+  <rect x="64" y="810" width="846" height="112" rx="18" fill="#fff" stroke="#dbe3ed" class="card"/>
+  <text x="94" y="851" class="label">MODEL CALL</text>
+  <text x="94" y="888" class="head">Q2 + assembled context → generate the next answer</text>
+  <path d="M705 744 C705 778 488 778 488 800" class="line"/>
+
+  <rect x="982" y="810" width="550" height="112" rx="18" fill="#eef2f8" stroke="#d5deeb" class="card"/>
+  <text x="1010" y="851" class="label">NEXT MAIN ANSWER</text>
+  <text x="1010" y="888" class="head">AI answers Q2 with B1 available as context</text>
+  <path d="M910 866 H970" class="line"/>
+
+  <path d="M982 631 C934 794 874 852 910 856" class="contextline" opacity=".9"/>
+  <text x="919" y="770" class="tag">prompt context</text>
+</svg>

@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: inlinegraph
+      POSTGRES_USER: inlinegraph
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env before starting PostgreSQL}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - inlinegraph-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U inlinegraph -d inlinegraph"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  inlinegraph-postgres:
